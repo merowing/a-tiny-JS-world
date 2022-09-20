@@ -73,6 +73,16 @@ creatures.forEach(value => {
          case 'say':
             value = `<em>${creature[creatureProperty]}</em>`;
             break;
+         case 'friends':
+            if(creature[creatureProperty]) {
+               value = getFriends(creature[creatureProperty]);
+            }
+            break;
+         case 'hands':
+            if(!creature[creatureProperty]) {
+               value = 0;
+            }
+            break;
          default:
             value = creature[creatureProperty];
       }
@@ -83,6 +93,14 @@ creatures.forEach(value => {
 
    print(message);
 });
+
+function getFriends(friendsId) {
+   return friendsId.map(id => {
+      const filteredCreatures = creatures.filter(creature => id === data[creature]['id']);
+      return data[filteredCreatures]['name'];
+
+   }).join(', ');
+}
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
