@@ -8,97 +8,107 @@ import { print } from './js/lib.js';
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-const data = {
-   man: {
+
+const data = [
+   {
       id: 0,
-      hands: 2,
-      legs: 2,
-      name: 'George',
       species: 'human',
+      name: 'George',
       gender: 'male',
-      say: 'Hello world!',
+      legs: 2,
+      hands: 2,
+      say: 'Hello OOP World!',
       friends: [1, 2],
    },
-   woman: {
+   {
       id: 1,
-      hands: 2,
-      legs: 2,
+      species: 'human',
       name: 'Samantha',
       gender: 'female',
-      say: 'Hi, I\'m Sam',
+      legs: 2,
+      hands: 2,
+      say: 'Hi, my name is Sam!',
       friends: [0, 3],
    },
-   cat: {
+   {
       id: 2,
-      legs: 4,
+      species: 'cat',
       name: 'Tom',
       gender: 'male animal',
-      species: 'cat',
-      say: 'meow-meow',
-   },
-   dog: {
-      id: 3,
       legs: 4,
+      say: 'Meow-meow',
+   },
+   {
+      id: 3,
+      species: 'dog',
       name: 'Allegra',
       gender: 'female animal',
-      species: 'dog',
-      say: 'woof-woof',
+      legs: 4,
    },
-   catWoman: {
+   {
       id: 4,
-      hands: 2,
-      legs: 2,
+      species: 'fairyTaleCat',
       name: 'Anne',
       gender: 'female',
-      species: 'human animal',
+      legs: 2,
+      hands: 2,
       friends: [0, 1, 2],
    }
-};
-data.catWoman.say = data.cat.say;
-data.woman.species = data.man.species;
+];
 
-const sequences = ['species', 'name', 'gender', 'hands', 'legs', 'say', 'friends'];
-const creatures = ['man', 'woman', 'cat', 'dog', 'catWoman'];
+class Creature {
+   constructor(id, name, gender, say) {
+      this.id = id;
+      this.name = name;
+      this.gender = gender;
+      this.say = say;
+   }
 
-creatures.forEach(value => {
-   let creature = data[value];
-
-   let message = sequences.map(creatureProperty => {
-      let value = '';
-      
-      switch(creatureProperty) {
-         case 'name':
-            value = `<strong>${creature[creatureProperty]}</strong>`;
-            break;
-         case 'say':
-            value = `<em>${creature[creatureProperty]}</em>`;
-            break;
-         case 'friends':
-            if(creature[creatureProperty]) {
-               value = getFriends(creature[creatureProperty]);
-            }
-            break;
-         case 'hands':
-            value = creature[creatureProperty] | 0;
-            break;
-         default:
-            value = creature[creatureProperty];
-      }
-
-      return value;
-
-   }).join('; ');
-
-   print(message);
-});
-
-function getFriends(friendsId) {
-   return friendsId.map(id => {
-      const filteredCreatures = creatures.filter(creature => id === data[creature]['id'])[0];
-      return data[filteredCreatures]['name'];
-
-   }).join(', ');
+   message() {
+      return `${this.species}; <strong>${this.name}</strong>; ${this.gender}; ${this.hands}; ${this.legs}; <em>${this.say}</em>;`;
+   }
 }
+
+class Human extends Creature {
+   constructor(id, name, gender, hands, legs, say, friends) {
+      super(id, name, gender, say);
+      this.species = 'human';
+      this.hands = hands;
+      this.legs = legs;
+      this.friends = friends;
+   }
+
+   message() {
+      return super.message() + ` ${this.friends.join(', ')}`;
+   }
+}
+
+class Animal extends Creature {
+
+}
+
+const friendlist = friends => {
+   return friends.map(id => {
+      const listOfNames = data.reduce((names, creature) => {
+         if(id === creature.id) names.push(creature.name);
+
+         return names;
+      }, []);
+
+      return listOfNames;
+   });
+};
+
+data.forEach(creature => {
+   let type;
+
+   if(creature.species === 'human') {
+      const { id, name, gender, hands, legs, say, friends } = creature;
+      type = new Human(id, name, gender, hands, legs, say, friendlist(friends));
+   }
+
+   if(type) print(type.message());
+});
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
