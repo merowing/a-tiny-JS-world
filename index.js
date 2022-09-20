@@ -84,7 +84,39 @@ class Human extends Creature {
 }
 
 class Animal extends Creature {
+   constructor(id, name, gender, legs) {
+      super(id, name, gender);
+      this.species = 'animal';
+      this.hands = 0;
+      this.legs = legs;
+   }
+}
 
+class Cat extends Animal {
+   constructor(id, name, gender, legs) {
+      super(id, name, gender, legs);
+      this.say = 'Meow-meow';
+   }
+}
+
+class FairyTaleCat extends Cat {
+   constructor(id, name, gender, hands, legs, friends) {
+      super(id, name, gender, legs);
+      this.species = 'fairy tale human';
+      this.hands = hands;
+      this.friends = friends;
+   }
+
+   message() {
+      return super.message() + ` ${this.friends.join(', ')}`;
+   }
+}
+
+class Dog extends Animal {
+   constructor(id, name, gender, legs) {
+      super(id, name, gender, legs);
+      this.say = 'Woof-woof';
+   }
 }
 
 const friendlist = friends => {
@@ -105,6 +137,21 @@ data.forEach(creature => {
    if(creature.species === 'human') {
       const { id, name, gender, hands, legs, say, friends } = creature;
       type = new Human(id, name, gender, hands, legs, say, friendlist(friends));
+   }
+
+   if(creature.species === 'cat') {
+      const { id, name, gender, legs } = creature;
+      type = new Cat(id, name, gender, legs);
+   }
+
+   if(creature.species === 'dog') {
+      const { id, name, gender, legs } = creature;
+      type = new Dog(id, name, gender, legs);
+   }
+
+   if(creature.species === 'fairyTaleCat') {
+      const { id, name, gender, hands, legs, friends } = creature;
+      type = new FairyTaleCat(id, name, gender, hands, legs, friendlist(friends));
    }
 
    if(type) print(type.message());
