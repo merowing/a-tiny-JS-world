@@ -61,7 +61,27 @@ const sequences = ['species', 'name', 'gender', 'hands', 'legs', 'say', 'friends
 const creatures = ['man', 'woman', 'cat', 'dog', 'catWoman'];
 
 creatures.forEach(value => {
+   let creature = data[value];
 
+   let message = sequences.map(creatureProperty => {
+      let value = '';
+      
+      switch(creatureProperty) {
+         case 'name':
+            value = `<strong>${creature[creatureProperty]}</strong>`;
+            break;
+         case 'say':
+            value = `<em>${creature[creatureProperty]}</em>`;
+            break;
+         default:
+            value = creature[creatureProperty];
+      }
+
+      return value;
+
+   }).join('; ');
+
+   print(message);
 });
 
 // ======== OUTPUT ========
