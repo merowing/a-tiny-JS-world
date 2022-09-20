@@ -8,7 +8,61 @@ import { print } from './js/lib.js';
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
+const data = {
+   man: {
+      id: 0,
+      hands: 2,
+      legs: 2,
+      name: 'George',
+      species: 'human',
+      gender: 'male',
+      say: 'Hello world!',
+      friends: [1, 2],
+   },
+   woman: {
+      id: 1,
+      hands: 2,
+      legs: 2,
+      name: 'Samantha',
+      gender: 'female',
+      say: 'Hi, I\'m Sam',
+      friends: [0, 3],
+   },
+   cat: {
+      id: 2,
+      legs: 4,
+      name: 'Tom',
+      gender: 'male animal',
+      species: 'cat',
+      say: 'meow-meow',
+   },
+   dog: {
+      id: 3,
+      legs: 4,
+      name: 'Allegra',
+      gender: 'female animal',
+      species: 'dog',
+      say: 'woof-woof',
+   },
+   catWoman: {
+      id: 4,
+      hands: 2,
+      legs: 2,
+      name: 'Anne',
+      gender: 'female',
+      species: 'human animal',
+      friends: [0, 1, 2],
+   }
+};
+data.catWoman.say = data.cat.say;
+data.woman.species = data.man.species;
 
+const sequences = ['species', 'name', 'gender', 'hands', 'legs', 'say', 'friends'];
+const creatures = ['man', 'woman', 'cat', 'dog', 'catWoman'];
+
+creatures.forEach(value => {
+
+});
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
