@@ -79,9 +79,7 @@ creatures.forEach(value => {
             }
             break;
          case 'hands':
-            if(!creature[creatureProperty]) {
-               value = 0;
-            }
+            value = creature[creatureProperty] | 0;
             break;
          default:
             value = creature[creatureProperty];
@@ -96,7 +94,7 @@ creatures.forEach(value => {
 
 function getFriends(friendsId) {
    return friendsId.map(id => {
-      const filteredCreatures = creatures.filter(creature => id === data[creature]['id']);
+      const filteredCreatures = creatures.filter(creature => id === data[creature]['id'])[0];
       return data[filteredCreatures]['name'];
 
    }).join(', ');
